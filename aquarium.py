@@ -1,3 +1,5 @@
+#!venv/bin/python
+
 #-----------
 #Sam's Aquarium - May contain bears
 #Use Python 3 probbo
@@ -24,6 +26,9 @@ git pull
 #-----------
 try:
     #import tkinter
+    import termcolor
+    import random
+    import sys
     import curses
     import os
     import shutil
@@ -42,30 +47,56 @@ class Border:
    def __init__(self): 
     
         #Border initialization
-        top_border = []
-        bottom_border = []
-        middle_border =[]
-        border_all= []
+        self.top_border = []
+        self.bottom_border = []
+        self.middle_border =[]
+        self.border_all= []
         #-----------
         #Border Creation
         for i in range(screen_width):
-            top_border.append('\u00af')
-            bottom_border.append('_')
+            self.top_border.append('\u00af')
+            self.bottom_border.append('_')
         #print(''.join(top_border))
-        middle_border.append('|')
+        self.middle_border.append('|')
         for i in range(screen_width-2):
-            middle_border.append(' ')
-        middle_border.append('|')
+            self.middle_border.append(' ')
+        self.middle_border.append('|')
 
         #print(''.join(bottom_border))
-        border_all.append(top_border)
+        self.border_all.append(self.top_border)
         for i in range(screen_height-3):
-            border_all.append(middle_border)
-        border_all.append(bottom_border)
+            self.border_all.append(self.middle_border)
+        self.border_all.append(self.bottom_border)
 #----------
 #Rocks
 #----------
-#class rock:
+'''Blue is smooth clay()
+Pink is Jagged Plagioclase(P)
+Yellow is Smoothish Limestone(Y)
+Grey is Smoothish  Large Dolomite(D)
+Black S is PLanar Shale'''
+
+rocklist = {'clay':'blue','plagioclase':'pink', 'limestone': 'yellow','Shale':'black'}
+
+
+
+#----------
+
+class Rock:
+    def __init__(self, size, morphology): 
+    
+        #Rock Initialization
+        self.height = random.randint(1,self.size)
+        self.width = random.randint(1,self.size)
+        self.stone = []
+        self.size = size
+        self.morphology = morphology
+        background = ['on_']+self.morphology
+        for i in range(self.height):
+            for i in range(self.width):
+                self.stone.append(rocklist[morphology])
+                cprint(''.join(stone),rocklist[morphology],background)
+        
 
 
 
@@ -73,6 +104,22 @@ class Border:
 
 
 
+#----------
+#Main stuff
+#----------
+
+
+#clay = 'clay'
+
+def main():
+    border = Border()
+#    rock1 = Rock(5,clay)
+    for item in border.border_all:
+        print(''.join(item))
+    
+
+if __name__ == '__main__':
+    sys.exit(main())
 
 
 
