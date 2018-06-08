@@ -78,26 +78,37 @@ Black S is PLanar Shale'''
 
 rocklist = {'clay':'blue','plagioclase':'pink', 'limestone': 'yellow','Shale':'black'}
 
-
-
 #----------
 
 class Rock:
-    def __init__(self, size, morphology): 
-    
+    def __init__(self,size,morphology = '*'): 
+   
         #Rock Initialization
-        self.height = random.randint(1,self.size)
-        self.width = random.randint(1,self.size)
-        self.stone = []
-        self.size = size
+        self.height = random.randint(1,size)
+        self.width = random.randint(1,size)
+        self.position_x = random.randint(1,screen_width)
+
+        self.position_y = random.randint(int(screen_height-screen_height/3),screen_height)
+        #self.stone = []
+        #self.size = size
         self.morphology = morphology
-        background = ['on_']+self.morphology
-        for i in range(self.height):
+        #background = ['on_']+self.morphology
+        '''for i in range(self.height):
             for i in range(self.width):
                 self.stone.append(rocklist[morphology])
                 cprint(''.join(stone),rocklist[morphology],background)
-        
-
+        '''
+    def draw(self, canvas):
+        '''canvas is array of strings to be drawn
+        '''
+        current_x = self.position_x
+        current_y = self.position_y
+        for h in range(self.height):
+            for w in range(self.width):
+                canvas[current_y][current_x] = self.morphology
+                current_x +=1
+            current_y -=1
+         
 
 
 
@@ -113,7 +124,8 @@ class Rock:
 
 def main():
     border = Border()
-#    rock1 = Rock(5,clay)
+    rock1 = Rock(5)
+    rock1.draw(border.border_all)
     for item in border.border_all:
         print(''.join(item))
     
